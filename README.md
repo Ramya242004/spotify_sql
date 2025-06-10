@@ -1,7 +1,6 @@
-# Spotify Advanced SQL Project and Query Optimization P-6
+# Spotify Advanced SQL Project and Query Optimization 
 Project Category: Advanced
-[Click Here to get Dataset]([(https://www.kaggle.com/datasets/maharshipandya/-spotify-tracks-dataset)])
-
+[Click Here to get Dataset](https://www.kaggle.com/datasets/maharshipandya/-spotify-tracks-dataset)
 
 
 ## Overview
