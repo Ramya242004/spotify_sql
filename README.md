@@ -69,41 +69,83 @@ In advanced stages, the focus shifts to improving query performance. Some optimi
 
 ### Easy Level
 1. Retrieve the names of all tracks that have more than 1 billion streams.
-   '''sql
+   ```sql
    SELECT * FROM spotify
-where stream>1000000000;
-
-  '''
+   where stream>1000000000;
+   ```
 2. List all albums along with their respective artists.
-'''sql
+```sql
 SELECT 
   distinct album,artist
  from spotify
  order by 1;
-'''
+```
 3. Get the total number of comments for tracks where `licensed = TRUE`.
-'''sql
+ ```sql
 SELECt sum(comments) as total_comment FROM spotify
  where licensed = 'true';
-'''
+ ```
 4. Find all tracks that belong to the album type `single`.
-'''sql
+```sql
 select * from spotify
  where album_type ILIKE 'single'
-'''
-5. Count the total number of tracks by each artist.
-'''sql
+```
+6. Count the total number of tracks by each artist.
+```sql
 select artist,count(*) as total_no_songs from spotify
  GROUP by artist
  ORDER BY 2 ;
- '''
+ ```
 
 ### Medium Level
 1. Calculate the average danceability of tracks in each album.
+  ```sql
+SELECT 
+     album,AVG(danceability) as avg
+from spotify
+group by 1
+order by 2 desc;
+````
+
 2. Find the top 5 tracks with the highest energy values.
+```sql
+select track,avg(energy)
+from spotify
+group by 1
+order by 2 desc
+limit 5;
+```
 3. List all tracks along with their views and likes where `official_video = TRUE`.
+   ```sql
+   select track,sum(views) as total_views, sum(likes) as total_likes 
+   from spotify
+   where official_video='true'
+   group by 1
+   order by 2 desc
+   ```
+   
 4. For each album, calculate the total views of all associated tracks.
+   ```sql
+    select album,track,sum(views) as total_view
+   from spotify
+   group by 1,2
+   order by 3 desc;
+   ```
+   
 5. Retrieve the track names that have been streamed on Spotify more than YouTube.
+   ```sql
+   select * from
+   (select 
+    track,
+	coalesce(sum(case when most_played_on='Youtube' then stream end),0) as streamed_on_youtube,
+	coalesce(sum(case when most_played_on='Spotify' then stream end),0) as    streamed_on_spotify
+   from spotify
+   group by 1
+   ) as t1
+   where streamed_on_spotify>streamed_on_youtube and streamed_on_youtube<>0;
+   ```
+
+   
 
 ### Advanced Level
 1. Find the top 3 most-viewed tracks for each artist using window functions.
