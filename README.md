@@ -1,5 +1,5 @@
-# Spotify Advanced SQL Project and Query Optimization 
-Project Category: Advanced
+# Spotify SQL Project and Query Optimization 
+Project Category:
 [Dataset](https://www.kaggle.com/datasets/maharshipandya/-spotify-tracks-dataset)
 
 
